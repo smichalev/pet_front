@@ -19,49 +19,14 @@ import menu_bar from './../components/menu';
 		},
 		data() {
 			return {
-			  loaded: false,
+			  loaded: true,
 				login: false,
 				profile: {},
         dialog: false,
 			};
 		},
 		methods: {
-		  notify() {
-        this.$notify({
-          title: 'Ошибка',
-          message: '!!!',
-          type: 'error',
-          position: 'bottom-right'
-        });
-      },
-			authorization() {
-				window.location.href = 'http://dev.fastdonate.local/api/auth/steam';
-			},
-			logout() {
-				this.$axios.post('http://dev.fastdonate.local/api/auth/logout').then(() => {
-					this.$store.commit('logout');
-					this.profile = {};
-					this.login = false;
-				});
-			},
-		},
-		mounted() {
-			Promise.all([
-					this.$axios.get('http://dev.fastdonate.local/api/profile'),
-				])
-				.then(([data]) => {
-					if (data.data.profile !== {}) {
-						this.$store.commit('login', data.data.profile);
-						this.profile = data.data.profile;
-            this.loaded = true;
-						this.login = true;
-					}
-				})
-				.catch(() => {
-					this.login = false;
-					this.loaded = true;
-					this.logout();
-				});
+
 		},
 	};
 </script>

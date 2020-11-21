@@ -1,8 +1,8 @@
 <template>
   <div class="menu">
-    <div v-for="(item, index) in listMenu" :item="'menu'+index">
+    <div v-for="(item, index) in listMenu" :item="'menu'+index" v-if="!!~item.access.indexOf(roleUser)">
       <div class="title">{{ item.title }}</div>
-      <div v-for="(i, ind) in item.items" :item="'item'+ind">
+      <div v-for="(i, ind) in item.items" :item="'item'+ind" v-if="!!~i.access.indexOf(roleUser)">
         <div class="menu-item" :class="{ 'active': i.active }" @click="goTo(i.href, index, ind)">
           <i :class="i.icon" class="icon"></i>
           <div>{{ i.title }}</div>
@@ -19,117 +19,137 @@ export default {
       listMenu: [
         {
           title: 'Меню сайта',
+          access: ['guest', 'user', 'manager', 'admin'],
           items: [
             {
               title: 'Главная',
               active: false,
               icon: 'home',
-              href: '/'
+              href: '/',
+              access: ['guest', 'user', 'manager', 'admin'],
             },
             {
               title: 'Каталог серверов',
               active: false,
               icon: 'list',
-              href: '/servers'
+              href: '/servers',
+              access: ['guest', 'user', 'manager', 'admin'],
             },
             {
               title: 'Магазин скриптов',
               active: false,
               icon: 'shopping cart',
-              href: '/store'
-            }
-          ]
-        },
-        {
-          title: 'Для пользователя',
-          items: [
-            {
-              title: 'Пополнить счет',
-              active: false,
-              icon: 'plus',
-              href: '/donate'
-            },
-            {
-              title: 'Вывести со счета',
-              active: false,
-              icon: 'reply',
-              href: '/withdraw'
-            },
-            {
-              title: 'История аккаунта',
-              active: false,
-              icon: 'history',
-              href: '/history'
-            },
-            {
-              title: 'Моя страница',
-              active: false,
-              icon: 'user',
-              href: '/profile'
-            },
-            {
-              title: 'Настройки',
-              active: false,
-              icon: 'settings',
-              href: '/settings'
+              href: '/store',
+              access: ['guest', 'user', 'manager', 'admin'],
             },
             {
               title: 'Помощь',
               active: false,
               icon: 'help',
-              href: '/faq'
+              href: '/faq',
+              access: ['guest', 'user', 'manager', 'admin'],
             }
           ]
         },
         {
+          title: 'Для пользователя',
+          access: ['user', 'manager', 'admin'],
+          items: [
+            {
+              title: 'Пополнить счет',
+              active: false,
+              icon: 'plus',
+              href: '/donate',
+              access: ['user'],
+            },
+            {
+              title: 'Вывести со счета',
+              active: false,
+              icon: 'reply',
+              href: '/withdraw',
+              access: ['user'],
+            },
+            {
+              title: 'История аккаунта',
+              active: false,
+              icon: 'history',
+              href: '/history',
+              access: ['user'],
+            },
+            {
+              title: 'Моя страница',
+              active: false,
+              icon: 'user',
+              href: '/profile',
+              access: ['user', 'manager', 'admin'],
+            },
+            {
+              title: 'Настройки',
+              active: false,
+              icon: 'settings',
+              href: '/settings',
+              access: ['user', 'manager', 'admin'],
+            },
+          ]
+        },
+        {
           title: 'Для продавца',
+          access: ['user'],
           items: [
             {
               title: 'Статистика продаж',
               active: false,
               icon: 'signal',
-              href: '/stats'
+              href: '/stats',
+              access: ['user'],
             },
             {
               title: 'Мои сервера',
               active: false,
               icon: 'server',
-              href: '/myservers'
+              href: '/myservers',
+              access: ['user'],
             },
             {
               title: 'Мой донат',
               active: false,
               icon: 'money bill alternate',
-              href: '/mydonate'
+              href: '/mydonate',
+              access: ['user'],
             },
             {
               title: 'Мои скрипты',
               active: false,
               icon: 'file outline',
-              href: '/myscripts'
+              href: '/myscripts',
+              access: ['user'],
             },
             {
               title: 'Для сервера',
               active: false,
               icon: 'magic',
-              href: '/forserver'
+              href: '/forserver',
+              access: ['user'],
             }
           ]
         },
         {
           title: 'Для админа',
+          access: ['manager', 'admin'],
           items: [
             {
               title: 'Управление сервисом',
               active: false,
               icon: 'heart',
-              href: '/administration'
+              href: '/administration',
+              access: ['admin'],
             },
             {
               title: 'Документация',
               active: false,
               icon: 'clipboard list',
-              href: '/docs'
+              href: '/docs',
+              access: ['manager', 'admin']
             },
           ]
         }
@@ -152,8 +172,13 @@ export default {
       })
     }
   },
+  computed: {
+    roleUser: function () {
+      return this.$store.state.profile && this.$store.state.profile.role ? this.$store.state.profile.role.toLowerCase() : 'guest'
+    }
+  },
   methods: {
-    goTo: function(link, index, index2){
+    goTo: function (link, index, index2) {
       if (!this.listMenu[index].items[index2].active) {
         this.$router.push(link);
       }
@@ -167,11 +192,12 @@ export default {
   position: fixed;
   left: 10px;
   margin-top: 20px;
-  height: 100%;
   max-width: 230px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 75px);
+  overflow-y: auto;
 
   .title {
     font-size: 14px;
@@ -201,14 +227,18 @@ export default {
     }
 
     &:hover, &:active, &:focus {
-      background: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.7);
     }
   }
 
   .active {
     background: #fff;
+    color: #31479a;
     font-weight: 500;
-    border: 1px solid #ccc;
+
+    .icon {
+      color: #31479a;
+    }
 
     &:hover {
       background: #fff;

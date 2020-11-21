@@ -1,11 +1,15 @@
 <template>
   <div class="nav">
     <logo></logo>
-    <div v-if="login">
-      выйти
+    <div v-if="profile">
+      <sui-button secondary @click="logout" :loading="loadingBtnLogout" :disabled="disabledBtnLogout">ВЫЙТИ
+      </sui-button>
     </div>
     <div v-else>
-      <div class="loginbtn"></div>
+      <sui-button secondary @click="authorization" :loading="loadingBtn" :disabled="disabledBtn"><i
+        class="icon steam"></i> STEAM
+        LOGIN
+      </sui-button>
     </div>
   </div>
 </template>
@@ -21,13 +25,49 @@ export default {
   },
   data() {
     return {
-
+      loadingBtn: false,
+      disabledBtn: false,
+      loadingBtnLogout: false,
+      disabledBtnLogout: false
     }
   },
   computed: {
-    login: function () {
-      return this.$store.state.profile
+    profile() {
+      return this.$store.state.profile ? this.$store.state.profile : null
     }
+  },
+  methods: {
+    logout() {
+      this.loadingBtnLogout = true;
+      this.disabledBtnLogout = true;
+      this.$axios.post('http://dev.fastdonate.local/api/auth/logout').then(() => {
+        this.$store.commit('logout');
+        this.profile = {};
+      }).finally(() => {
+        this.loadingBtnLogout = false;
+        this.disabledBtnLogout = false;
+      });
+    },
+    authorization() {
+      this.loadingBtn = true;
+      this.disabledBtn = true;
+      window.location.href = 'http://dev.fastdonate.local/api/auth/steam';
+    },
+    loadInfo() {
+      this.$axios.get('http://dev.fastdonate.local/api/').then((data) => {
+        if (data && data.data && data.data.profile) {
+          this.$store.commit('login', data.data.profile);
+        }
+        else {
+          this.logout();
+        }
+      }).catch((err) => {
+        this.logout();
+      });
+    }
+  },
+  mounted() {
+    this.loadInfo();
   }
 }
 </script>
@@ -38,7 +78,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
-  background: #033c84;
+  background: #31479a;
   position: fixed;
   z-index: 100;
   top: 0;
@@ -50,26 +90,6 @@ export default {
 
     &:hover, &:focus, &:active {
       background: #ffffff12;
-    }
-  }
-
-  .loginbtn {
-    background: #171a21;
-    width: 148px;
-    cursor: pointer;
-    height: 47px;
-    background-image: url(https://steamstore-a.akamaihd.net/public/shared/images/header/globalheader_logo.png);
-    background-size: 129px;
-    background-position: right;
-    background-repeat: no-repeat;
-    transition: background 1s;
-
-    &:hover {
-      background: #35373a;
-      background-image: url(https://steamstore-a.akamaihd.net/public/shared/images/header/globalheader_logo.png);
-      background-size: 129px;
-      background-position: right;
-      background-repeat: no-repeat;
     }
   }
 }
