@@ -1,9 +1,13 @@
 <template>
   <div class="nav">
     <logo></logo>
-    <div v-if="profile">
-      <sui-button secondary @click="logout" :loading="loadingBtnLogout" :disabled="disabledBtnLogout">ВЫЙТИ
-      </sui-button>
+    <div v-if="profile" style="display: flex; align-items: center">
+      <a is="sui-label" color="blue" image size="medium">
+        <img :src="profile.avatar" />
+        {{ profile.login }}
+        <sui-label-detail>{{ profile.balance }} рублей</sui-label-detail>
+      </a>
+      <sui-button color="orange" content="ВЫЙТИ" @click="logout" :loading="loadingBtnLogout" :disabled="disabledBtnLogout" style="font-size: 12px; margin-left: 10px"/>
     </div>
     <div v-else>
       <sui-button secondary @click="authorization" :loading="loadingBtn" :disabled="disabledBtn"><i
@@ -46,6 +50,7 @@ export default {
       }).finally(() => {
         this.loadingBtnLogout = false;
         this.disabledBtnLogout = false;
+        this.$store.commit('loaded', true);
       });
     },
     authorization() {

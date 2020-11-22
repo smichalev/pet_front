@@ -11,16 +11,19 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@innologica/vue-dropdown-menu": "^0.1.4",
     "@nuxtjs/axios": "^5.9.5",
     "@nuxtjs/moment": "^1.6.0",
     "element-ui": "^2.13.0",
     "nuxt": "^2.0.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-vue": "^0.11.0",
+    "vue-socket.io": "^3.0.10",
     "vue-the-mask": "^0.11.1",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.0.0"
+    "@nuxtjs/vuetify": "^1.0.0",
+    "bp-vuejs-dropdown": "^2.1.1"
   }
 }

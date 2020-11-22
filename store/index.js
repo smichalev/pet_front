@@ -18,4 +18,7 @@ export const mutations = {
   notification(state, count) {
     state.notification = count;
   },
+  loaded(state, value) {
+    state.loaded = value;
+  },
 };

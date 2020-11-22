@@ -11,10 +11,15 @@ export default {
     link: [
       {rel: 'shortcut icon', type: 'image/png', href: '/favicon.png'},
     ],
+    script: [
+      {
+        src: '/socket.io/socket.io.min.js'
+      }
+    ]
   },
   loading: {color: '#fff'},
   css: ['./assets/normalize.css'],
-  plugins: ['@/plugins/semantic'],
+  plugins: ['@/plugins/semantic', '@/plugins/socket.client.js'],
   buildModules: [
     '@nuxtjs/moment',
   ],

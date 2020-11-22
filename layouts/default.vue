@@ -1,10 +1,10 @@
 <template>
-  <div v-if="loaded">
-      <navbar></navbar>
-      <menu_bar class="navigation-desktop"></menu_bar>
-      <div class="content-area">
-          <nuxt></nuxt>
-      </div>
+  <div>
+    <navbar></navbar>
+    <menu_bar class="navigation-desktop"></menu_bar>
+    <div class="content-area">
+      <nuxt></nuxt>
+    </div>
   </div>
 </template>
 
@@ -12,23 +12,17 @@
 import navbar from './../components/nav/menu';
 import menu_bar from './../components/menu';
 
-	export default {
-		components: {
-      navbar,
-      menu_bar
-		},
-		data() {
-			return {
-			  loaded: true,
-				login: false,
-				profile: {},
-        dialog: false,
-			};
-		},
-		methods: {
-
-		},
-	};
+export default {
+  components: {
+    navbar,
+    menu_bar
+  },
+  data() {
+    return {
+      dialog: false,
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
