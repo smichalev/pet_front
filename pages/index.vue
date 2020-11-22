@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     send() {
-      this.$axios.post('/api/chat/sendmsg');
+      this.$axios.post('http://78.24.218.252/api/chat/sendmsg');
     }
   },
   mounted() {
