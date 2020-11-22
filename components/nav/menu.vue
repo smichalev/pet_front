@@ -44,7 +44,7 @@ export default {
     logout() {
       this.loadingBtnLogout = true;
       this.disabledBtnLogout = true;
-      this.$axios.post('/api/auth/logout').then(() => {
+      this.$axios.post('http://78.24.218.252/api/auth/logout').then(() => {
         this.$store.commit('logout');
         this.profile = {};
       }).finally(() => {
@@ -56,10 +56,10 @@ export default {
     authorization() {
       this.loadingBtn = true;
       this.disabledBtn = true;
-      window.location.href = '/api/auth/steam';
+      window.location.href = 'http://78.24.218.252/api/auth/steam';
     },
     loadInfo() {
-      this.$axios.get('/api/').then((data) => {
+      this.$axios.get('http://78.24.218.252/api/').then((data) => {
         if (data && data.data && data.data.profile) {
           this.$store.commit('login', data.data.profile);
         }
