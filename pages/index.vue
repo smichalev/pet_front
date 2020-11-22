@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     send() {
-      this.$axios.post(this.$domain+'/api/chat/sendmsg');
+      this.$axios.post('/api/chat/sendmsg');
     }
   },
   mounted() {

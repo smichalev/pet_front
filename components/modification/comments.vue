@@ -104,7 +104,7 @@
         });
       },
       loadingComments() {
-        this.$axios.get(this.$domain+'/api/comment/' + this.idmod).then((data) => {
+        this.$axios.get('/api/comment/' + this.idmod).then((data) => {
           this.comments = data.data.comments;
           this.loading = false;
         }).catch((err) => {
@@ -119,7 +119,7 @@
       },
       postComment() {
         this.loadingbtn = true;
-        this.$axios.post(this.$domain+'/api/comment/' + this.idmod, {
+        this.$axios.post('/api/comment/' + this.idmod, {
           text: this.textComment
         }).then((data) => {
           this.textComment = '';

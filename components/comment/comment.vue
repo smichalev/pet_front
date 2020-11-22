@@ -63,7 +63,7 @@
 				}
 			},
 			send() {
-				this.$axios.post(this.$domain+'/api/comment/' + this.$route.params.id,
+				this.$axios.post('/api/comment/' + this.$route.params.id,
 					{
 						id: this.$route.params.id,
 						text: this.msg,

@@ -37,7 +37,7 @@
     },
     methods: {
       removeComment() {
-        this.$axios.delete(this.$domain+'/api/comment/' + this.comment.id)
+        this.$axios.delete('/api/comment/' + this.comment.id)
           .then((data) => {
             this.$emit('removeComment', data);
           })

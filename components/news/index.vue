@@ -65,7 +65,7 @@ export default {
         page = 0;
       }
 
-      this.$axios.get(this.$domain+'/api/news?page='+page).then((data) => {
+      this.$axios.get('/api/news?page='+page).then((data) => {
         this.news = data.data.news;
 
         if (data.data.page === 1) {
@@ -80,7 +80,7 @@ export default {
       });
     },
     addNews() {
-      this.$axios.post(this.$domain+'/api/news', {
+      this.$axios.post('/api/news', {
         title: this.title,
         description: this.description
       }).then((data) => {

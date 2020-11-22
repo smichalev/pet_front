@@ -47,7 +47,7 @@
 				this.hide = true;
 			},
 			loadMore() {
-				this.$axios.get(this.$domain+'/api/comment/' + this.$route.params.id + '/' + this.parent,
+				this.$axios.get('/api/comment/' + this.$route.params.id + '/' + this.parent,
 					{
 						id: this.$route.params.id,
 						text: this.message,
