@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     send() {
-      this.$axios.post('http://dev.fastdonate.local/api/chat/sendmsg');
+      this.$axios.post(this.$domain+'/api/chat/sendmsg');
     }
   },
   mounted() {

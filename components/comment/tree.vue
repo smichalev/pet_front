@@ -47,7 +47,7 @@
 				this.hide = true;
 			},
 			loadMore() {
-				this.$axios.get('http://dev.fastdonate.local/api/comment/' + this.$route.params.id + '/' + this.parent,
+				this.$axios.get(this.$domain+'/api/comment/' + this.$route.params.id + '/' + this.parent,
 					{
 						id: this.$route.params.id,
 						text: this.message,

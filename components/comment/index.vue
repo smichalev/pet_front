@@ -70,7 +70,7 @@
 		},
 		methods: {
 			send() {
-				this.$axios.post('http://dev.fastdonate.local/api/comment/' + this.$route.params.id,
+				this.$axios.post(this.$domain+'/api/comment/' + this.$route.params.id,
 					{
 						id: this.$route.params.id,
 						text: this.message,
@@ -88,7 +88,7 @@
 			},
 		},
 		mounted() {
-			this.$axios.get('http://dev.fastdonate.local/api/comment/' + this.$route.params.id).then((data) => {
+			this.$axios.get(this.$domain+'/api/comment/' + this.$route.params.id).then((data) => {
 				this.comments = data.data.comments;
 				this.comments.forEach((item) => {
 					item.child = [];

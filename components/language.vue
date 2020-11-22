@@ -51,7 +51,7 @@
 		methods: {
 			change(lang) {
 				if (this.$store.state.lang !== lang) {
-					this.$axios.post('http://dev.fastdonate.local/api/lang', {
+					this.$axios.post(this.$domain+'/api/lang', {
 						lang,
 					}).then(() => {
 						this.$store.commit('changeLang', lang);
@@ -60,7 +60,7 @@
 			},
 		},
 		mounted() {
-			this.$axios.get('http://dev.fastdonate.local/api/lang').then((data) => {
+			this.$axios.get(this.$domain+'/api/lang').then((data) => {
 				this.$store.commit('changeLang', data.data.lang);
 			});
 		},

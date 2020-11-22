@@ -44,7 +44,7 @@ export default {
     logout() {
       this.loadingBtnLogout = true;
       this.disabledBtnLogout = true;
-      this.$axios.post('http://dev.fastdonate.local/api/auth/logout').then(() => {
+      this.$axios.post(this.$domain+'/api/auth/logout').then(() => {
         this.$store.commit('logout');
         this.profile = {};
       }).finally(() => {
@@ -56,10 +56,10 @@ export default {
     authorization() {
       this.loadingBtn = true;
       this.disabledBtn = true;
-      window.location.href = 'http://dev.fastdonate.local/api/auth/steam';
+      window.location.href = this.$domain+'/api/auth/steam';
     },
     loadInfo() {
-      this.$axios.get('http://dev.fastdonate.local/api/').then((data) => {
+      this.$axios.get(this.$domain+'/api/').then((data) => {
         if (data && data.data && data.data.profile) {
           this.$store.commit('login', data.data.profile);
         }

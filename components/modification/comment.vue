@@ -37,7 +37,7 @@
     },
     methods: {
       removeComment() {
-        this.$axios.delete('http://dev.fastdonate.local/api/comment/' + this.comment.id)
+        this.$axios.delete(this.$domain+'/api/comment/' + this.comment.id)
           .then((data) => {
             this.$emit('removeComment', data);
           })

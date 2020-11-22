@@ -104,7 +104,7 @@
         });
       },
       loadingComments() {
-        this.$axios.get('http://dev.fastdonate.local/api/comment/' + this.idmod).then((data) => {
+        this.$axios.get(this.$domain+'/api/comment/' + this.idmod).then((data) => {
           this.comments = data.data.comments;
           this.loading = false;
         }).catch((err) => {
@@ -119,7 +119,7 @@
       },
       postComment() {
         this.loadingbtn = true;
-        this.$axios.post('http://dev.fastdonate.local/api/comment/' + this.idmod, {
+        this.$axios.post(this.$domain+'/api/comment/' + this.idmod, {
           text: this.textComment
         }).then((data) => {
           this.textComment = '';

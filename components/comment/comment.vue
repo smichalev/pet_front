@@ -63,7 +63,7 @@
 				}
 			},
 			send() {
-				this.$axios.post('http://dev.fastdonate.local/api/comment/' + this.$route.params.id,
+				this.$axios.post(this.$domain+'/api/comment/' + this.$route.params.id,
 					{
 						id: this.$route.params.id,
 						text: this.msg,
